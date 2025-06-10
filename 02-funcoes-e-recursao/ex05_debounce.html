@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Exemplo de Debounce</title>
+  <style>
+    body {
+      font-family: Roboto, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+
+    #busca {
+      padding: 10px;
+      font-size: 1rem;
+      width: 300px;
+      border-radius: 8px;
+    }
+  </style>  
+</head>
+
+<body>
+  <script>
+    // 5. Debounce
+    // Crie function debounce(fn, delay) que receba uma função fn e um delay
+    // em ms, retornando uma nova função que só executa fn se não for
+    // chamada novamente dentro do intervalo.
+
+    // Cria input dinamicamente
+    const input = document.createElement("input");
+    input.id = "busca";
+    input.type = "text";
+    input.placeholder = "Digite algo...";
+    document.body.appendChild(input);
+
+    // Função debounce
+    function debounce(fn, delay) { 
+      let timeoutId;
+
+      return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          fn.apply(this, args);
+        }, delay);
+      };
+    }
+
+    // Aplica debounce ao evento input
+    input.addEventListener("input", debounce(function(event) {
+      console.log("Buscando por:", event.target.value);
+    }, 300));
+  </script>
+</body>
+</html>
